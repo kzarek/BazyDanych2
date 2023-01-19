@@ -66,6 +66,23 @@ productRoutes.delete("/products/:id", async(req, res) => {
 })
 
 
+productRoutes.get("/products/raport", async(req, res) => {
+    let db_connect = await dbo.getDb("mongo");
+    console.log("it actually connected")
+    
+    const pipeline = [
+        { $match: {} },
+        { $group: {_id: "$name",totalOrderValue: { $sum: { $multiply: [ "$price", "$qty" ] } }}},
+    ];
+    const aggCursor = db_connect.collection("products").aggregate(pipeline);
+    let result = []
+    for await (const doc of aggCursor) {
+        result.push(doc)
+    }
+    console.log(aggCursor)
+    res.send(result)
+})
+
 
 
 
