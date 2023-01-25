@@ -1,0 +1,5 @@
+EMPLOYEE = "Employee"
+DEPARTMENT = "Department"
+
+WORKS_IN = "WORKS_IN"
+MANAGES = "MANAGES"
